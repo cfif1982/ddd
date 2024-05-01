@@ -10,8 +10,6 @@ type Crash struct {
 	contractID  uuid.UUID
 	description string
 	// нужен ли здесь clientID и carID. Мы можем их получить из contractID
-	// хранить contractID или сам объект Contract
-	// в примере проекта DDD в сущности Order хранится UserID и []Items. Почему не храним []ItemsID?
 }
 
 func NewCrash(id uuid.UUID, date string, contractID uuid.UUID, description string) (*Crash, error) {
@@ -41,6 +39,7 @@ func (c *Crash) ContractID() uuid.UUID {
 	return c.contractID
 }
 
+// реализация этих функций - зависит от структуры Crash
 // func (c *Crash) ClientID() uuid.UUID {
 // 	return
 // }

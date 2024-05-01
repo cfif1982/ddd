@@ -33,7 +33,6 @@ func CreateContract(
 	managerID uuid.UUID,
 	clientID uuid.UUID,
 	carID uuid.UUID,
-	// хранить id сущностей или сами сущности хранить?
 	summa int,
 ) (*Contract, error) {
 
