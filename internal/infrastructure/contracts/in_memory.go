@@ -37,7 +37,6 @@ func (r *InMemoryRepo) SaveContract(c contracts.Contract) error {
 	r.db[c.ID()] = contractDB{
 		managerID: c.ManagerID(),
 		clientID:  c.ClientID(),
-		carID:     c.CarID(),
 		summa:     c.Summa(),
 	}
 
@@ -56,7 +55,6 @@ func (r *InMemoryRepo) GetContract(id uuid.UUID) (*contracts.Contract, error) {
 		id,
 		cDB.managerID,
 		cDB.clientID,
-		cDB.carID,
 		cDB.summa,
 	)
 

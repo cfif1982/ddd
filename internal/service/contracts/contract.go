@@ -1,7 +1,6 @@
 package contracts
 
 import (
-	"ddd/internal/domain/cars"
 	"ddd/internal/domain/clients"
 	"ddd/internal/domain/contracts"
 	"ddd/internal/domain/managers"
@@ -23,27 +22,20 @@ type clientRepo interface {
 	GetClient(id uuid.UUID) (*clients.Client, error)
 }
 
-type carRepo interface {
-	GetCar(id uuid.UUID) (*cars.Car, error)
-}
-
 type ContractService struct {
 	contractRepo contractRepo
 	managerRepo  managerRepo
 	clientRepo   clientRepo
-	carRepo      carRepo
 }
 
 func NewContractService(
 	contractRepo contractRepo,
 	managerRepo managerRepo,
 	clientRepo clientRepo,
-	carRepo carRepo,
 ) *ContractService {
 	return &ContractService{
 		contractRepo: contractRepo,
 		managerRepo:  managerRepo,
 		clientRepo:   clientRepo,
-		carRepo:      carRepo,
 	}
 }

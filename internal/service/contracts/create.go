@@ -1,7 +1,6 @@
 package contracts
 
 import (
-	"ddd/internal/domain/cars"
 	"ddd/internal/domain/contracts"
 
 	"github.com/google/uuid"
@@ -10,7 +9,6 @@ import (
 func (cs *ContractService) Create(
 	managerId uuid.UUID,
 	clientId uuid.UUID,
-	carId uuid.UUID,
 ) (*contracts.Contract, error) {
 
 	manager, err := cs.managerRepo.GetManager(managerId)
@@ -23,11 +21,6 @@ func (cs *ContractService) Create(
 		return nil, err
 	}
 
-	car, err := cs.carRepo.GetCar(carId)
-	if err != nil {
-		return nil, err
-	}
-
 	// рассчитываем бонус менеджера
 	managerBonus := calculateManagerBonus(managerId)
 
@@ -35,12 +28,11 @@ func (cs *ContractService) Create(
 	clientDiscount := client.Discount()
 
 	// рассчитываем сумму контракта
-	contractSumma := calculateContractSumma(car, clientDiscount)
+	contractSumma := calculateContractSumma(clientDiscount)
 
 	contract, err := contracts.CreateContract(
 		managerId,
 		clientId,
-		carId,
 		contractSumma,
 	)
 
@@ -76,7 +68,7 @@ func calculateManagerBonus(_ uuid.UUID) int {
 	return 10
 }
 
-func calculateContractSumma(_ *cars.Car, clientDiscount int) int {
+func calculateContractSumma(clientDiscount int) int {
 
 	// рассчиываем сумму контракта
 	contractSumma := clientDiscount

@@ -15,19 +15,16 @@ func (h *Handler) CreateContract(rw http.ResponseWriter, req *http.Request) {
 		h.contractRepo,
 		h.managerRepo,
 		h.clientRepo,
-		h.carRepo,
 	)
 
 	// узнаем переменные из запроса
 	managerId, _ := uuid.Parse(req.URL.Query().Get("manager_id"))
 	clientId, _ := uuid.Parse(req.URL.Query().Get("client_id"))
-	carId, _ := uuid.Parse(req.URL.Query().Get("car_id"))
 
 	// создаем контракт
 	contract, err := cs.Create(
 		managerId,
 		clientId,
-		carId,
 	)
 
 	if err != nil {

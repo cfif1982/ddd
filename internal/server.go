@@ -6,7 +6,6 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	contractsHandler "ddd/internal/application/contracts/handlers"
-	carsInfra "ddd/internal/infrastructure/cars"
 	clientsInfra "ddd/internal/infrastructure/clients"
 	contractsInfra "ddd/internal/infrastructure/contracts"
 	managersInfra "ddd/internal/infrastructure/managers"
@@ -26,14 +25,12 @@ func (s *Server) Run() error {
 	contractRepo := contractsInfra.NewInMemoryRepo()
 	clientRepo := clientsInfra.NewInMemoryRepo()
 	managerRepo := managersInfra.NewInMemoryRepo()
-	carRepo := carsInfra.NewInMemoryRepo()
 
 	// создаем хэндлер для контрактов
 	contractHandler := contractsHandler.NewHandler(
 		contractRepo,
 		managerRepo,
 		clientRepo,
-		carRepo,
 	)
 
 	// создаем хэндлер для аварий
@@ -57,10 +54,3 @@ func (s *Server) initContractRoutes(router *chi.Mux, handler *contractsHandler.H
 	router.Post(`/contract/add`, handler.CreateContract)
 
 }
-
-// func (s *Server) initCrashRoutes(router *chi.Mux, handler *crashHandler.Handler) {
-
-// 	// добавление нового контракта
-// 	router.Post(`/crash/add`, handler.CreateCrash)
-
-// }

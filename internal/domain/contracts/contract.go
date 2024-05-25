@@ -6,7 +6,6 @@ type Contract struct {
 	id        uuid.UUID
 	managerID uuid.UUID
 	clientID  uuid.UUID
-	carID     uuid.UUID
 	summa     int
 }
 
@@ -14,7 +13,6 @@ func NewContract(
 	id uuid.UUID,
 	managerID uuid.UUID,
 	clientID uuid.UUID,
-	carID uuid.UUID,
 	summa int,
 ) (*Contract, error) {
 
@@ -24,7 +22,6 @@ func NewContract(
 		id:        id,
 		managerID: managerID,
 		clientID:  clientID,
-		carID:     carID,
 		summa:     summa,
 	}, nil
 }
@@ -32,7 +29,6 @@ func NewContract(
 func CreateContract(
 	managerID uuid.UUID,
 	clientID uuid.UUID,
-	carID uuid.UUID,
 	summa int,
 ) (*Contract, error) {
 
@@ -40,7 +36,6 @@ func CreateContract(
 		uuid.New(),
 		managerID,
 		clientID,
-		carID,
 		summa,
 	)
 }
@@ -59,10 +54,6 @@ func (c *Contract) ID() uuid.UUID {
 
 func (c *Contract) ClientID() uuid.UUID {
 	return c.clientID
-}
-
-func (c *Contract) CarID() uuid.UUID {
-	return c.carID
 }
 
 func (c *Contract) ManagerID() uuid.UUID {
