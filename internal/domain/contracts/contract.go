@@ -7,6 +7,7 @@ type Contract struct {
 	managerID uuid.UUID
 	clientID  uuid.UUID
 	summa     int
+	cars      []Car
 }
 
 func NewContract(
@@ -14,6 +15,7 @@ func NewContract(
 	managerID uuid.UUID,
 	clientID uuid.UUID,
 	summa int,
+	cars []Car,
 ) (*Contract, error) {
 
 	// проверка полей
@@ -23,6 +25,7 @@ func NewContract(
 		managerID: managerID,
 		clientID:  clientID,
 		summa:     summa,
+		cars:      cars,
 	}, nil
 }
 
@@ -30,6 +33,7 @@ func CreateContract(
 	managerID uuid.UUID,
 	clientID uuid.UUID,
 	summa int,
+	cars []Car,
 ) (*Contract, error) {
 
 	return NewContract(
@@ -37,6 +41,7 @@ func CreateContract(
 		managerID,
 		clientID,
 		summa,
+		cars,
 	)
 }
 
@@ -62,4 +67,8 @@ func (c *Contract) ManagerID() uuid.UUID {
 
 func (c *Contract) Summa() int {
 	return c.summa
+}
+
+func (c *Contract) Cars() []Car {
+	return c.cars
 }

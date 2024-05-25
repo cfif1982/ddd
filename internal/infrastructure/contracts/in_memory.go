@@ -13,6 +13,7 @@ type contractDB struct {
 	clientID  uuid.UUID
 	carID     uuid.UUID
 	summa     int
+	cars      []contracts.Car
 }
 
 type InMemoryRepo struct {
@@ -38,6 +39,7 @@ func (r *InMemoryRepo) SaveContract(c contracts.Contract) error {
 		managerID: c.ManagerID(),
 		clientID:  c.ClientID(),
 		summa:     c.Summa(),
+		cars:      c.Cars(),
 	}
 
 	return nil
@@ -56,6 +58,7 @@ func (r *InMemoryRepo) GetContract(id uuid.UUID) (*contracts.Contract, error) {
 		cDB.managerID,
 		cDB.clientID,
 		cDB.summa,
+		cDB.cars,
 	)
 
 	if err != nil {

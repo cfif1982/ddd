@@ -9,6 +9,7 @@ import (
 func (cs *ContractService) Create(
 	managerId uuid.UUID,
 	clientId uuid.UUID,
+	cars []contracts.Car,
 ) (*contracts.Contract, error) {
 
 	manager, err := cs.managerRepo.GetManager(managerId)
@@ -34,6 +35,7 @@ func (cs *ContractService) Create(
 		managerId,
 		clientId,
 		contractSumma,
+		cars,
 	)
 
 	if err != nil {

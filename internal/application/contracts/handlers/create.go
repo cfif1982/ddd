@@ -1,7 +1,9 @@
 package handlers
 
 import (
+	dContracts "ddd/internal/domain/contracts"
 	"ddd/internal/service/contracts"
+	"encoding/json"
 	"log"
 	"net/http"
 
@@ -20,11 +22,20 @@ func (h *Handler) CreateContract(rw http.ResponseWriter, req *http.Request) {
 	// узнаем переменные из запроса
 	managerId, _ := uuid.Parse(req.URL.Query().Get("manager_id"))
 	clientId, _ := uuid.Parse(req.URL.Query().Get("client_id"))
+	carItems := req.URL.Query().Get("cars") // получили json car
+
+	var cars []dContracts.Car
+
+	if err := json.Unmarshal([]byte(carItems), &cars); err != nil {
+		http.Error(rw, err.Error(), http.StatusBadRequest)
+		return
+	}
 
 	// создаем контракт
 	contract, err := cs.Create(
 		managerId,
 		clientId,
+		cars,
 	)
 
 	if err != nil {
